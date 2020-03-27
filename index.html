@@ -14,9 +14,12 @@
       section {
         padding: 20px;
       }
+      h1, h2, h3, h4 {
+        margin: 0;
+      }
       section.main {
         position: absolute;
-        top: 80px;
+        top: 60px;
         bottom: 60px;
         left: 0;
         right: 0;
@@ -24,7 +27,7 @@
       }
       section.footer {
         position: absolute;
-        bottom: 0;
+        bottom: 10px;
         left: 0;
       }
       .chart-container {
@@ -32,25 +35,28 @@
         height: 100%;
         width: 100%;
       }
-      button {
-        -webkit-appearance: none;
-        margin-top: 20px;
+      .button {
+        display: inline-block;
+        margin-right: 20px;
         padding: 10px 20px;
+        background-color: #CCC;
+        color: #222;
+        cursor: pointer;
       }
     </style>
   </head>
   <body>
     <section class="header">
       <h1>COVID-19 Illinois</h1>
-    </div>
+    </section>
     <section class="main">
       <div class="chart-container">
           <canvas id="chart"></canvas>
       </div>
     </section>
     <section class="footer">
-      <button id="hide-all">Hide All</button>
-      <button id="show-all">Show All</button>
+      <a id="hide-all" class="button">Hide All</button>
+      <a id="show-all" class="button">Show All</button>
     </div>
 
     <script>
