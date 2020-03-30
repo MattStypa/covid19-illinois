@@ -4,22 +4,22 @@
     <title>COVID-19 Illinois</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <script src="data.js"></script>
     <style>
       body {
+        margin: 20px;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         background-color: #222;
         color: #CCC;
       }
-      section {
-        padding: 20px;
-      }
-      h1, h2, h3, h4 {
-        margin: 0;
+      a, a:visited, a:active {
+        color: #3DF;
       }
       .chart-container {
-        height: calc(100vh - 40px);
+        height: calc(100vh - 200px);
         width: calc(100vw - 40px);
+        max-height: calc(100vw - 40px);
       }
       .button {
         display: inline-block;
@@ -32,22 +32,21 @@
     </style>
   </head>
   <body>
-    <section class="header">
-      <h1>COVID-19 Illinois</h1>
+    <h1>COVID-19 Illinois</h1>
+    <p>
+      <small>Data source: <a target="_blank" rel="noreferrer noopener" href="http://www.dph.illinois.gov/topics-services/diseases-and-conditions/diseases-a-z-list/coronavirus">Illinois Department of Public Health</a></small><br/>
       <small id="last-updated"></small>
-    </section>
-    <section class="main">
-      <div class="chart-container">
-          <canvas id="chart"></canvas>
-      </div>
-    </section>
-    <section class="footer">
-      <a id="hide-all" class="button">Hide All</button>
-      <a id="show-all" class="button">Show All</button>
+    </p>
+    <div class="chart-container">
+        <canvas id="chart"></canvas>
     </div>
+    <p>
+      <a id="hide-all" class="button">Hide All</a>
+      <a id="show-all" class="button">Show All</a>
+    </p>
 
     <script>
-      document.getElementById('last-updated').innerHTML = 'Last updated on: ' + data.updated + ' CST';
+      document.getElementById('last-updated').innerHTML = 'Last updated on: ' + data.updated;
       var ctx = document.getElementById('chart').getContext('2d');
 
       var axes = [{
@@ -55,12 +54,28 @@
         ticks: { fontColor: '#CCC' },
       }];
 
+      var datasets = Object.keys(data.sets).map(function(area) {
+        return {
+          label: area,
+          lineTension: 0,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          pointHitRadius: 30,
+          fill: false,
+          spanGaps: true,
+          borderColor: data.sets[area].color,
+          backgroundColor: data.sets[area].color,
+          data: data.sets[area].positive,
+        };
+      });
+
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
           labels: data.labels,
-          datasets: data.sets,
+          datasets: datasets,
         },
+        plugins: [ChartDataLabels],
         options: {
           maintainAspectRatio: false,
           legend: {
@@ -76,6 +91,20 @@
             xAxes: axes,
             yAxes: axes,
           },
+          plugins: {
+            datalabels: {
+              anchor: 'end',
+              align: 'left',
+              offset: 8,
+              backgroundColor: '#333',
+              color: function(context) {
+                return context.dataset.backgroundColor;
+              },
+              formatter: function(value, context){
+                return context.dataset.data.length === context.dataIndex + 1 ? context.dataset.label : null;
+              }
+            }
+          }
         },
       });
 
