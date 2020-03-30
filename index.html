@@ -17,23 +17,9 @@
       h1, h2, h3, h4 {
         margin: 0;
       }
-      section.main {
-        position: absolute;
-        top: 70px;
-        bottom: 60px;
-        left: 0;
-        right: 0;
-        padding: 20px;
-      }
-      section.footer {
-        position: absolute;
-        bottom: 10px;
-        left: 0;
-      }
       .chart-container {
-        position: relative;
-        height: 100%;
-        width: 100%;
+        height: calc(100vh - 40px);
+        width: calc(100vw - 40px);
       }
       .button {
         display: inline-block;
@@ -62,9 +48,13 @@
 
     <script>
       document.getElementById('last-updated').innerHTML = 'Last updated on: ' + data.updated + ' CST';
-
       var ctx = document.getElementById('chart').getContext('2d');
-      var axes = [{ gridLines: { color: '#444' }}];
+
+      var axes = [{
+        gridLines: { color: '#444' },
+        ticks: { fontColor: '#CCC' },
+      }];
+
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -85,7 +75,7 @@
           scales: {
             xAxes: axes,
             yAxes: axes,
-          }
+          },
         },
       });
 
