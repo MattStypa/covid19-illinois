@@ -40,7 +40,7 @@
         color: #999;
       }
       .chart-container {
-        height: calc(100vh - 250px);
+        height: calc(100vh - 300px);
         width: calc(100vw - 40px);
         max-height: calc(100vw - 40px);
       }
@@ -88,25 +88,33 @@
         ticks: { fontColor: '#CCC' },
       }];
 
+      function getDataSet(area, data, color) {
+        return {
+          hidden: true,
+          label: area,
+          lineTension: 0,
+          pointRadius: 5,
+          pointHoverRadius: 5,
+          pointHitRadius: 30,
+          fill: false,
+          spanGaps: true,
+          borderColor: color,
+          backgroundColor: color,
+          data: data,
+        };
+      }
+
+      var datasets = [];
+
+      Object.keys(data.sets).forEach(function(area) {
+        datasets.push(getDataSet(area, data.sets[area].positive, data.sets[area].color));
+      })
+
       var myChart = new Chart(document.getElementById('chart').getContext('2d'), {
         type: 'line',
         data: {
           labels: data.labels,
-          datasets: Object.keys(data.sets).map(function(area) {
-            return {
-              hidden: true,
-              label: area,
-              lineTension: 0,
-              pointRadius: 5,
-              pointHoverRadius: 5,
-              pointHitRadius: 30,
-              fill: false,
-              spanGaps: true,
-              borderColor: data.sets[area].color,
-              backgroundColor: data.sets[area].color,
-              data: data.sets[area].positive,
-            };
-          }),
+          datasets: datasets,
         },
         plugins: [ChartDataLabels],
         options: {
@@ -127,7 +135,6 @@
           },
           plugins: {
             datalabels: {
-              anchor: 'end',
               align: 'left',
               offset: 8,
               borderRadius: 5,
