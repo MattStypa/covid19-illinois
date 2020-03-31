@@ -24,7 +24,7 @@ var data={
   ],
   "sets": {
     "Illinois": {
-      "color": "hsl(25, 60%, 50%)",
+      "color": "hsl(356, 60%, 50%)",
       "positive": [
         20,
         25,
@@ -73,7 +73,7 @@ var data={
       ]
     },
     "Tested": {
-      "color": "hsl(4, 60%, 50%)",
+      "color": "hsl(271, 60%, 50%)",
       "positive": [
         326,
         367,
@@ -122,7 +122,7 @@ var data={
       ]
     },
     "Chicago": {
-      "color": "hsl(14, 60%, 50%)",
+      "color": "hsl(204, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -171,7 +171,7 @@ var data={
       ]
     },
     "Adams": {
-      "color": "hsl(308, 60%, 50%)",
+      "color": "hsl(329, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -220,7 +220,7 @@ var data={
       ]
     },
     "Bond": {
-      "color": "hsl(173, 60%, 50%)",
+      "color": "hsl(260, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -269,7 +269,7 @@ var data={
       ]
     },
     "Bureau": {
-      "color": "hsl(116, 60%, 50%)",
+      "color": "hsl(68, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -318,7 +318,7 @@ var data={
       ]
     },
     "Carroll": {
-      "color": "hsl(228, 60%, 50%)",
+      "color": "hsl(250, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -367,7 +367,7 @@ var data={
       ]
     },
     "Champaign": {
-      "color": "hsl(203, 60%, 50%)",
+      "color": "hsl(19, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -416,7 +416,7 @@ var data={
       ]
     },
     "Christian": {
-      "color": "hsl(335, 60%, 50%)",
+      "color": "hsl(71, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -465,7 +465,7 @@ var data={
       ]
     },
     "Clark": {
-      "color": "hsl(82, 60%, 50%)",
+      "color": "hsl(132, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -514,7 +514,7 @@ var data={
       ]
     },
     "Clinton": {
-      "color": "hsl(309, 60%, 50%)",
+      "color": "hsl(18, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -563,7 +563,7 @@ var data={
       ]
     },
     "Cook": {
-      "color": "hsl(188, 60%, 50%)",
+      "color": "hsl(114, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -612,7 +612,7 @@ var data={
       ]
     },
     "Crawford": {
-      "color": "hsl(63, 60%, 50%)",
+      "color": "hsl(36, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -661,7 +661,7 @@ var data={
       ]
     },
     "Cumberland": {
-      "color": "hsl(41, 60%, 50%)",
+      "color": "hsl(73, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -710,7 +710,7 @@ var data={
       ]
     },
     "DeKalb": {
-      "color": "hsl(239, 60%, 50%)",
+      "color": "hsl(158, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -759,7 +759,7 @@ var data={
       ]
     },
     "Douglas": {
-      "color": "hsl(228, 60%, 50%)",
+      "color": "hsl(250, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -808,7 +808,7 @@ var data={
       ]
     },
     "DuPage": {
-      "color": "hsl(266, 60%, 50%)",
+      "color": "hsl(70, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -857,7 +857,7 @@ var data={
       ]
     },
     "Fayette": {
-      "color": "hsl(280, 60%, 50%)",
+      "color": "hsl(34, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -906,7 +906,7 @@ var data={
       ]
     },
     "Franklin": {
-      "color": "hsl(65, 60%, 50%)",
+      "color": "hsl(309, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -955,7 +955,7 @@ var data={
       ]
     },
     "Grundy": {
-      "color": "hsl(280, 60%, 50%)",
+      "color": "hsl(281, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1004,7 +1004,7 @@ var data={
       ]
     },
     "Henry": {
-      "color": "hsl(295, 60%, 50%)",
+      "color": "hsl(213, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1053,7 +1053,7 @@ var data={
       ]
     },
     "Iroquois": {
-      "color": "hsl(136, 60%, 50%)",
+      "color": "hsl(181, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1102,7 +1102,7 @@ var data={
       ]
     },
     "Jackson": {
-      "color": "hsl(217, 60%, 50%)",
+      "color": "hsl(111, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1151,7 +1151,7 @@ var data={
       ]
     },
     "Jo Daviess": {
-      "color": "hsl(55, 60%, 50%)",
+      "color": "hsl(67, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1200,7 +1200,7 @@ var data={
       ]
     },
     "Kane": {
-      "color": "hsl(83, 60%, 50%)",
+      "color": "hsl(316, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1249,7 +1249,7 @@ var data={
       ]
     },
     "Kankakee": {
-      "color": "hsl(234, 60%, 50%)",
+      "color": "hsl(277, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1347,7 +1347,7 @@ var data={
       ]
     },
     "Knox": {
-      "color": "hsl(91, 60%, 50%)",
+      "color": "hsl(31, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1396,7 +1396,7 @@ var data={
       ]
     },
     "Lake": {
-      "color": "hsl(79, 60%, 50%)",
+      "color": "hsl(146, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1445,7 +1445,7 @@ var data={
       ]
     },
     "LaSalle": {
-      "color": "hsl(167, 60%, 50%)",
+      "color": "hsl(266, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1494,7 +1494,7 @@ var data={
       ]
     },
     "Livingston": {
-      "color": "hsl(221, 60%, 50%)",
+      "color": "hsl(144, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1543,7 +1543,7 @@ var data={
       ]
     },
     "McHenry": {
-      "color": "hsl(164, 60%, 50%)",
+      "color": "hsl(322, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1592,7 +1592,7 @@ var data={
       ]
     },
     "McLean": {
-      "color": "hsl(66, 60%, 50%)",
+      "color": "hsl(273, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1641,7 +1641,7 @@ var data={
       ]
     },
     "Macon": {
-      "color": "hsl(353, 60%, 50%)",
+      "color": "hsl(180, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1690,7 +1690,7 @@ var data={
       ]
     },
     "Madison": {
-      "color": "hsl(334, 60%, 50%)",
+      "color": "hsl(48, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1739,7 +1739,7 @@ var data={
       ]
     },
     "Marion": {
-      "color": "hsl(4, 60%, 50%)",
+      "color": "hsl(34, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1788,7 +1788,7 @@ var data={
       ]
     },
     "Marshall": {
-      "color": "hsl(349, 60%, 50%)",
+      "color": "hsl(269, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1837,7 +1837,7 @@ var data={
       ]
     },
     "Menard": {
-      "color": "hsl(76, 60%, 50%)",
+      "color": "hsl(192, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1886,7 +1886,7 @@ var data={
       ]
     },
     "Monroe": {
-      "color": "hsl(127, 60%, 50%)",
+      "color": "hsl(349, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1935,7 +1935,7 @@ var data={
       ]
     },
     "Montgomery": {
-      "color": "hsl(197, 60%, 50%)",
+      "color": "hsl(216, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -1984,7 +1984,7 @@ var data={
       ]
     },
     "Morgan": {
-      "color": "hsl(116, 60%, 50%)",
+      "color": "hsl(68, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2033,7 +2033,7 @@ var data={
       ]
     },
     "Peoria": {
-      "color": "hsl(285, 60%, 50%)",
+      "color": "hsl(294, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2082,7 +2082,7 @@ var data={
       ]
     },
     "Randolph": {
-      "color": "hsl(63, 60%, 50%)",
+      "color": "hsl(36, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2131,7 +2131,7 @@ var data={
       ]
     },
     "Rock Island": {
-      "color": "hsl(286, 60%, 50%)",
+      "color": "hsl(279, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2180,7 +2180,7 @@ var data={
       ]
     },
     "St. Clair": {
-      "color": "hsl(287, 60%, 50%)",
+      "color": "hsl(274, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2229,7 +2229,7 @@ var data={
       ]
     },
     "Saline": {
-      "color": "hsl(301, 60%, 50%)",
+      "color": "hsl(170, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2278,7 +2278,7 @@ var data={
       ]
     },
     "Sangamon": {
-      "color": "hsl(349, 60%, 50%)",
+      "color": "hsl(269, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2327,7 +2327,7 @@ var data={
       ]
     },
     "Stephenson": {
-      "color": "hsl(126, 60%, 50%)",
+      "color": "hsl(323, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2376,7 +2376,7 @@ var data={
       ]
     },
     "Tazewell": {
-      "color": "hsl(258, 60%, 50%)",
+      "color": "hsl(24, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2425,7 +2425,7 @@ var data={
       ]
     },
     "Washington": {
-      "color": "hsl(66, 60%, 50%)",
+      "color": "hsl(168, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2474,7 +2474,7 @@ var data={
       ]
     },
     "Whiteside": {
-      "color": "hsl(157, 60%, 50%)",
+      "color": "hsl(136, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2523,7 +2523,7 @@ var data={
       ]
     },
     "Will": {
-      "color": "hsl(9, 60%, 50%)",
+      "color": "hsl(16, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2572,7 +2572,7 @@ var data={
       ]
     },
     "Williamson": {
-      "color": "hsl(197, 60%, 50%)",
+      "color": "hsl(298, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2621,7 +2621,7 @@ var data={
       ]
     },
     "Winnebago": {
-      "color": "hsl(177, 60%, 50%)",
+      "color": "hsl(180, 60%, 50%)",
       "positive": [
         null,
         null,
@@ -2670,7 +2670,7 @@ var data={
       ]
     },
     "Woodford": {
-      "color": "hsl(171, 60%, 50%)",
+      "color": "hsl(45, 60%, 50%)",
       "positive": [
         null,
         null,
