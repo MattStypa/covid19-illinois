@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112417989-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-112417989-2');
+    </script>
     <title>COVID-19 Illinois</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
@@ -22,12 +29,19 @@
         max-height: calc(100vw - 40px);
       }
       .button {
+        border: 1px solid #444;
+        color: #444;
+        border-radius: 10px;
+        user-select: none;
         display: inline-block;
-        margin-right: 20px;
+        margin-right: 10px;
+        margin-top: 10px;
         padding: 10px 20px;
-        background-color: #CCC;
-        color: #222;
         cursor: pointer;
+      }
+      .button.active {
+        border-color: #3DF;
+        color: #3DF;
       }
     </style>
   </head>
@@ -40,46 +54,43 @@
     <div class="chart-container">
         <canvas id="chart"></canvas>
     </div>
-    <p>
-      <a id="hide-all" class="button">Hide All</a>
-      <a id="show-all" class="button">Show All</a>
-    </p>
+    <p id="legend-primary"></p>
+    <p id="legend-secondary"></p>
 
     <script>
       document.getElementById('last-updated').innerHTML = 'Last updated on: ' + data.updated;
-      var ctx = document.getElementById('chart').getContext('2d');
 
       var axes = [{
         gridLines: { color: '#444' },
         ticks: { fontColor: '#CCC' },
       }];
 
-      var datasets = Object.keys(data.sets).map(function(area) {
-        return {
-          label: area,
-          lineTension: 0,
-          pointRadius: 5,
-          pointHoverRadius: 7,
-          pointHitRadius: 30,
-          fill: false,
-          spanGaps: true,
-          borderColor: data.sets[area].color,
-          backgroundColor: data.sets[area].color,
-          data: data.sets[area].positive,
-        };
-      });
-
-      var myChart = new Chart(ctx, {
+      var myChart = new Chart(document.getElementById('chart').getContext('2d'), {
         type: 'line',
         data: {
           labels: data.labels,
-          datasets: datasets,
+          datasets: Object.keys(data.sets).map(function(area) {
+            return {
+              hidden: true,
+              label: area,
+              lineTension: 0,
+              pointRadius: 5,
+              pointHoverRadius: 5,
+              pointHitRadius: 30,
+              fill: false,
+              spanGaps: true,
+              borderColor: data.sets[area].color,
+              backgroundColor: data.sets[area].color,
+              data: data.sets[area].positive,
+            };
+          }),
         },
         plugins: [ChartDataLabels],
         options: {
           maintainAspectRatio: false,
+          animation: false,
           legend: {
-            display: true,
+            display: false,
             position: 'bottom',
             labels: {
                 boxWidth: 12,
@@ -96,7 +107,9 @@
               anchor: 'end',
               align: 'left',
               offset: 8,
-              backgroundColor: '#333',
+              borderRadius: 5,
+              textStrokeWidth: 4,
+              textStrokeColor: '#222',
               color: function(context) {
                 return context.dataset.backgroundColor;
               },
@@ -108,17 +121,42 @@
         },
       });
 
-      function setHidden(hidden) {
-        return function() {
-          myChart.data.datasets.forEach(function(ds, index) {
-            myChart.getDatasetMeta(index).hidden = hidden ? true : null;
-          });
-          myChart.update();
-        }
+      var areas = {};
+
+      Object.keys(data.sets).forEach(function(area) {
+        areas[area] = false;
+      });
+
+      function toggleArea(area) {
+        areas[area] = !areas[area];
+        updateChart();
       }
 
-      document.getElementById('hide-all').onclick = setHidden(true);
-      document.getElementById('show-all').onclick = setHidden(false);
+      function updateChart() {
+        myChart.data.datasets.forEach(function(ds) {
+          ds.hidden = !areas[ds.label];
+        });
+        myChart.update();
+        updateLagend();
+      }
+
+      function updateLagend() {
+        var primaryAreas = ['Illinois', 'Chicago', 'Tested'];
+
+        document.getElementById('legend-primary').innerHTML = primaryAreas.map(renderAreaButton).join('');
+        document.getElementById('legend-secondary').innerHTML = Object.keys(areas).sort().map(function(area) {
+          return primaryAreas.includes(area) ? '' : renderAreaButton(area);
+        }).join('');
+      }
+
+      function renderAreaButton(area) {
+        return ['<a class="button ', areas[area] ? 'active' : '', '" onclick="toggleArea(\'', area, '\')">', area, '</a>'].join('');
+      }
+
+      areas['Illinois'] = true;
+      areas['Chicago'] = true;
+
+      updateChart();
     </script>
   </body>
 </html>
