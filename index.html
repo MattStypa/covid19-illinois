@@ -42,11 +42,12 @@
       .chart-container {
         height: calc(100vh - 300px);
         width: calc(100vw - 40px);
-        max-height: calc(100vw - 40px);
+        max-height: calc(100vw);
+        min-height: 300px;
       }
       .button {
-        border: 1px solid #444;
-        color: #444;
+        border: 1px solid #999;
+        color: #999;
         border-radius: 10px;
         user-select: none;
         display: inline-block;
@@ -58,6 +59,8 @@
       .button.active {
         border-color: #3DF;
         color: #3DF;
+        border-width: 3px;
+        padding: 8px 18px;
       }
       .spacer {
         margin-top: 50px;
