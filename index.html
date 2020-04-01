@@ -29,7 +29,7 @@
       body {
         margin: 20px;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        font-size: 20px;
+        font-size: 14px;
         background-color: #222;
         color: #CCC;
       }
@@ -37,6 +37,7 @@
         color: #3DF;
       }
       small {
+        font-size: 14px;
         color: #999;
       }
       .chart-container {
@@ -62,8 +63,9 @@
         border-width: 3px;
         padding: 8px 18px;
       }
-      .spacer {
-        margin-top: 50px;
+      .message {
+        margin: 50px 0;
+        font-size: 20px;
       }
     </style>
   </head>
@@ -79,18 +81,27 @@
     <p id="legend-primary"></p>
     <p id="legend-secondary"></p>
     <p><small>✸ Counties that we do not have data for or counties with no active cases have been ommitted.</small></p>
-    <p class="spacer">
+    <p class="message">
       Hello! 👋<br/>
       I make improvements and add new features everyday, but if you have an idea or suggestion let me know on twitter <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/mattstypa">@mattstypa</a>.
     </p>
     <script>
-      document.getElementById('last-updated').innerHTML = data.updated;
-
+      var primaryAreas = ['Illinois', 'Chicago', 'Tested'];
+      var initialAreas = ['Illinois', 'Chicago'];
+      var areas = Object.keys(data.sets).sort();
       var datasets = [];
+      var lagendPrimary = [];
+      var legendSecondary = [];
+
+      areas.forEach(function(area, index) {
+        var legend = { area, index };
+        datasets.push(getDataSet(area, data.sets[area].positive, data.sets[area].color));
+        primaryAreas.includes(area) ? lagendPrimary.push(legend) : legendSecondary.push(legend);
+      });
 
       function getDataSet(area, data, color) {
         return {
-          hidden: true,
+          hidden: !initialAreas.includes(area),
           label: area,
           lineTension: 0,
           pointRadius: 5,
@@ -104,9 +115,21 @@
         };
       }
 
-      Object.keys(data.sets).forEach(function(area) {
-        datasets.push(getDataSet(area, data.sets[area].positive, data.sets[area].color));
-      })
+      document.getElementById('last-updated').innerHTML = data.updated;
+      document.getElementById('legend-primary').innerHTML = lagendPrimary.map(renderLegendButton).join('');
+      document.getElementById('legend-secondary').innerHTML = legendSecondary.map(renderLegendButton).join('');
+
+      function renderLegendButton(legend) {
+        var active = initialAreas.includes(legend.area) ? 'active' : '';
+        return `<a class="button ${active}" data-index="${legend.index}" onclick="toggleArea(this)">${legend.area}</a>`;
+      }
+
+      function toggleArea(el) {
+        var active = !el.classList.contains('active');
+        active ? el.classList.add('active') : el.classList.remove('active');
+        myChart.data.datasets[el.dataset.index].hidden = !active;
+        myChart.update();
+      }
 
       var axes = [{
         gridLines: { color: '#444' },
@@ -153,43 +176,6 @@
           }
         },
       });
-
-      var areas = {};
-
-      Object.keys(data.sets).forEach(function(area) {
-        areas[area] = false;
-      });
-
-      function toggleArea(area) {
-        areas[area] = !areas[area];
-        updateChart();
-      }
-
-      function updateChart() {
-        myChart.data.datasets.forEach(function(ds) {
-          ds.hidden = !areas[ds.label];
-        });
-        myChart.update();
-        updateLagend();
-      }
-
-      function updateLagend() {
-        var primaryAreas = ['Illinois', 'Chicago', 'Tested'];
-
-        document.getElementById('legend-primary').innerHTML = primaryAreas.map(renderAreaButton).join('');
-        document.getElementById('legend-secondary').innerHTML = Object.keys(areas).sort().map(function(area) {
-          return primaryAreas.includes(area) ? '' : renderAreaButton(area);
-        }).join('');
-      }
-
-      function renderAreaButton(area) {
-        return ['<a class="button ', areas[area] ? 'active' : '', '" onclick="toggleArea(\'', area, '\')">', area, '</a>'].join('');
-      }
-
-      areas['Illinois'] = true;
-      areas['Chicago'] = true;
-
-      updateChart();
     </script>
   </body>
 </html>
