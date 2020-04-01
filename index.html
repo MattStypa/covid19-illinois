@@ -46,9 +46,10 @@
         max-height: calc(100vw);
         min-height: 300px;
       }
-      .button {
+      button {
         border: 1px solid #999;
         color: #999;
+        background: none;
         border-radius: 10px;
         user-select: none;
         display: inline-block;
@@ -57,11 +58,21 @@
         padding: 10px 20px;
         cursor: pointer;
       }
-      .button.active {
+      button:focus {
+        outline: none;
+      }
+      button.active {
         border-color: #3DF;
         color: #3DF;
         border-width: 3px;
         padding: 8px 18px;
+      }
+      button#cases-btn {
+        border-radius: 10px 0 0 10px;
+        margin-right: 0;
+      }
+      button#deaths-btn {
+        border-radius: 0 10px 10px 0;
       }
       .message {
         margin: 50px 0;
@@ -94,14 +105,14 @@
       var legendSecondary = [];
 
       areas.forEach(function(area, index) {
-        var legend = { area, index };
+        var legend = { area: area, index: index };
         datasets.push(getDataSet(area, data.sets[area].positive, data.sets[area].color));
-        primaryAreas.includes(area) ? lagendPrimary.push(legend) : legendSecondary.push(legend);
+        includes(primaryAreas, area) ? lagendPrimary.push(legend) : legendSecondary.push(legend);
       });
 
       function getDataSet(area, data, color) {
         return {
-          hidden: !initialAreas.includes(area),
+          hidden: !includes(initialAreas, area),
           label: area,
           lineTension: 0,
           pointRadius: 5,
@@ -120,8 +131,8 @@
       document.getElementById('legend-secondary').innerHTML = legendSecondary.map(renderLegendButton).join('');
 
       function renderLegendButton(legend) {
-        var active = initialAreas.includes(legend.area) ? 'active' : '';
-        return `<a class="button ${active}" data-index="${legend.index}" onclick="toggleArea(this)">${legend.area}</a>`;
+        var active = includes(initialAreas, legend.area) ? 'active' : '';
+        return ['<button class="', active, '" data-index="', legend.index, '" onclick="toggleArea(this)">', legend.area, '</button>'].join('');
       }
 
       function toggleArea(el) {
@@ -129,6 +140,10 @@
         active ? el.classList.add('active') : el.classList.remove('active');
         myChart.data.datasets[el.dataset.index].hidden = !active;
         myChart.update();
+      }
+
+      function includes(arr, item) {
+        return arr.indexOf(item) > -1;
       }
 
       var axes = [{
