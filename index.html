@@ -45,12 +45,6 @@
         font-size: 14px;
         color: #999;
       }
-      .chart-container {
-        height: calc(100vh - 300px);
-        width: calc(100vw - 40px);
-        max-height: calc(100vw);
-        min-height: 300px;
-      }
       button {
         border: 1px solid #999;
         color: #999;
@@ -72,14 +66,23 @@
         border-width: 3px;
         padding: 8px 18px;
       }
-      button#cases-btn {
+      .hidden {
+        display: none;
+      }
+      #chart-container {
+        height: calc(100vh - 300px);
+        width: calc(100vw - 40px);
+        max-height: calc(100vw);
+        min-height: 300px;
+      }
+      #metric-buttons button:first-child {
         border-radius: 10px 0 0 10px;
         margin-right: 0;
       }
-      button#deaths-btn {
+      #metric-buttons button:last-child {
         border-radius: 0 10px 10px 0;
       }
-      .message {
+      #message {
         margin: 50px 0;
         font-size: 20px;
       }
@@ -91,33 +94,49 @@
       <small>Data source:</small> <a target="_blank" rel="noreferrer noopener" href="http://www.dph.illinois.gov/topics-services/diseases-and-conditions/diseases-a-z-list/coronavirus">Illinois Department of Public Health</a><br/>
       <small>Last updated on:</small> <span id="last-updated"></span>
     </p>
-    <div class="chart-container">
+    <div id="chart-container">
         <canvas id="chart"></canvas>
     </div>
+    <p>
+      <span id="metric-buttons">
+        <button class="active" data-metric="cases" onclick="toggleMetric(this)">Cases</button>
+        <button data-metric="deaths" onclick="toggleMetric(this)">Deaths</button>
+      </span>
+      <button id="tested" data-area="Tested" onclick="toggleArea(this)">Tested</button>
+    </p>
     <p id="legend-primary"></p>
     <p id="legend-secondary"></p>
     <p><small>✸ Counties that we do not have data for or counties with no active cases have been ommitted.</small></p>
-    <p class="message">
+    <p id="message">
       Hello! 👋<br/>
       I make improvements and add new features everyday, but if you have an idea or suggestion let me know on twitter <a target="_blank" rel="noreferrer noopener" href="https://twitter.com/mattstypa">@mattstypa</a>.
     </p>
+
     <script>
-      var primaryAreas = ['Illinois', 'Chicago', 'Tested'];
-      var initialAreas = ['Illinois', 'Chicago'];
+      var primaryAreas = ['Illinois', 'Chicago'];
       var areas = Object.keys(data.sets).sort();
       var datasets = [];
+      var datasetIndexes = {};
+      var activeAreas = {};
+      var activeMetric = 'cases';
       var lagendPrimary = [];
       var legendSecondary = [];
 
-      areas.forEach(function(area, index) {
-        var legend = { area: area, index: index };
-        datasets.push(getDataSet(area, data.sets[area].positive, data.sets[area].color));
-        includes(primaryAreas, area) ? lagendPrimary.push(legend) : legendSecondary.push(legend);
+      areas.forEach(function(area) {
+        var index = datasets.length;
+        activeAreas[area] = includes(primaryAreas, area);
+        datasetIndexes[area] = { cases: index, deaths: index + 1 };
+        datasets.push(getDataSet(area, data.sets[area].positive, data.sets[area].color, 'cases'));
+        datasets.push(getDataSet(area, data.sets[area].deaths, data.sets[area].color, 'deaths'));
+
+        if (area !== 'Tested') {
+          includes(primaryAreas, area) ? lagendPrimary.push(area) : legendSecondary.push(area);
+        }
       });
 
-      function getDataSet(area, data, color) {
+      function getDataSet(area, data, color, metric) {
         return {
-          hidden: !includes(initialAreas, area),
+          hidden: !activeAreas[area] || metric !== activeMetric,
           label: area,
           lineTension: 0,
           pointRadius: 5,
@@ -135,15 +154,42 @@
       document.getElementById('legend-primary').innerHTML = lagendPrimary.map(renderLegendButton).join('');
       document.getElementById('legend-secondary').innerHTML = legendSecondary.map(renderLegendButton).join('');
 
-      function renderLegendButton(legend) {
-        var active = includes(initialAreas, legend.area) ? 'active' : '';
-        return ['<button class="', active, '" data-index="', legend.index, '" onclick="toggleArea(this)">', legend.area, '</button>'].join('');
+      function renderLegendButton(area) {
+        var active = activeAreas[area] ? 'active' : '';
+        return ['<button class="', active, '" data-area="', area, '" onclick="toggleArea(this)">', area, '</button>'].join('');
       }
 
       function toggleArea(el) {
-        var active = !el.classList.contains('active');
+        var active = activeAreas[el.dataset.area] = !activeAreas[el.dataset.area];
+        var index = datasetIndexes[el.dataset.area][activeMetric];
         active ? el.classList.add('active') : el.classList.remove('active');
-        myChart.data.datasets[el.dataset.index].hidden = !active;
+        myChart.data.datasets[index].hidden = !active;
+        myChart.update();
+      }
+
+      function toggleMetric(el) {
+        if (el.classList.contains('active')) return;
+
+        Array.prototype.slice.call(document.querySelectorAll('#metric-buttons button')).forEach(function(el) {
+          el.classList.remove('active');
+        });
+
+        var testedButton = document.getElementById('tested');
+        activeMetric = el.dataset.metric;
+        el.classList.add('active');
+
+        if (activeMetric === 'deaths') {
+          activeAreas['Tested'] = false;
+          testedButton.classList.remove('active');
+          testedButton.classList.add('hidden');
+        } else {
+          testedButton.classList.remove('hidden');
+        }
+
+        myChart.data.datasets.forEach(function(dataset, index) {
+          dataset.hidden = !activeAreas[dataset.label] || datasetIndexes[dataset.label][activeMetric] !== index;
+        });
+
         myChart.update();
       }
 
@@ -153,7 +199,7 @@
 
       var axes = [{
         gridLines: { color: '#444' },
-        ticks: { fontColor: '#CCC' },
+        ticks: { fontColor: '#CCC', suggestedMin: 0 },
       }];
 
       var myChart = new Chart(document.getElementById('chart').getContext('2d'), {
