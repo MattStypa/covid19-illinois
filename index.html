@@ -38,6 +38,9 @@
         background-color: #222;
         color: #CCC;
       }
+      p, .p {
+        margin: 20px 0;
+      }
       a, a:visited, a:active {
         color: #3DF;
       }
@@ -69,6 +72,9 @@
       .hidden {
         display: none;
       }
+      #title {
+        margin-bottom: 0;
+      }
       #chart-container {
         height: calc(100vh - 300px);
         width: calc(100vw - 40px);
@@ -89,11 +95,16 @@
     </style>
   </head>
   <body>
-    <h1>COVID-19 Illinois</h1>
-    <p>
-      <small>Data source:</small> <a target="_blank" rel="noreferrer noopener" href="http://www.dph.illinois.gov/topics-services/diseases-and-conditions/diseases-a-z-list/coronavirus">Illinois Department of Public Health</a><br/>
-      <small>Last updated on:</small> <span id="last-updated"></span>
-    </p>
+    <div class="p">
+      <h1 id="title">COVID-19 Illinois</h1>
+      <a href="https://bitly.com/covid-19-il">https://bitly.com/covid-19-il</a>
+      <p>
+        <small>Data source:</small> <a target="_blank" rel="noreferrer noopener" href="http://www.dph.illinois.gov/topics-services/diseases-and-conditions/diseases-a-z-list/coronavirus">Illinois Department of Public Health</a><br/>
+        <small>Last updated on:</small> <span id="last-updated"></span>
+      </p>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fbitly.com%2Fcovid-19-il&layout=button&size=large&appId=230961071597941&width=77&height=28" width="77" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Checkout this Illinois #covid19 tracker" data-url="https://bitly.com/covid-19-il" data-show-count="false">Tweet</a>
+    </div>
     <div id="chart-container">
         <canvas id="chart"></canvas>
     </div>
@@ -128,10 +139,8 @@
         datasetIndexes[area] = { cases: index, deaths: index + 1 };
         datasets.push(getDataSet(area, data.sets[area].positive, data.sets[area].color, 'cases'));
         datasets.push(getDataSet(area, data.sets[area].deaths, data.sets[area].color, 'deaths'));
-
-        if (area !== 'Tested') {
-          includes(primaryAreas, area) ? lagendPrimary.push(area) : legendSecondary.push(area);
-        }
+        if (area === 'Tested') return;
+        includes(primaryAreas, area) ? lagendPrimary.push(area) : legendSecondary.push(area);
       });
 
       function getDataSet(area, data, color, metric) {
@@ -243,5 +252,6 @@
         },
       });
     </script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </body>
 </html>
