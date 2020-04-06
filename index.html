@@ -123,7 +123,7 @@
           <button class="active" data-metric="cases" onclick="toggleMetric(this)">Cases</button>
           <button data-metric="deaths" onclick="toggleMetric(this)">Deaths</button>
         </span>
-        <button id="tested" data-area="Tested" onclick="toggleArea(this)">Tested</button>
+        <button id="illinois-tested-button" data-area="Illinois - Tested" onclick="toggleArea(this)">Illinois - Tested</button>
       </p>
       <p id="legend-primary"></p>
       <p id="legend-secondary"></p>
@@ -141,23 +141,21 @@
     </p>
 
     <script>
-      var primaryAreas = ['Illinois', 'Chicago'];
       var areas = Object.keys(data.sets).sort();
       var datasets = [];
       var datasetIndexes = {};
       var activeAreas = {};
       var activeMetric = 'cases';
-      var lagendPrimary = [];
+      var lagendPrimary = ['Illinois', 'Chicago'];
       var legendSecondary = [];
 
       areas.forEach(function(area) {
         var index = datasets.length;
-        activeAreas[area] = includes(primaryAreas, area);
+        activeAreas[area] = includes(lagendPrimary, area);
         datasetIndexes[area] = { cases: index, deaths: index + 1 };
         datasets.push(getDataSet(area, data.sets[area].positive, data.sets[area].color, 'cases'));
         datasets.push(getDataSet(area, data.sets[area].deaths, data.sets[area].color, 'deaths'));
-        if (area === 'Tested') return;
-        includes(primaryAreas, area) ? lagendPrimary.push(area) : legendSecondary.push(area);
+        if (area !== 'Illinois - Tested' && !includes(lagendPrimary, area)) legendSecondary.push(area);
       });
 
       function getDataSet(area, data, color, metric) {
@@ -202,16 +200,16 @@
           el.classList.remove('active');
         });
 
-        var testedButton = document.getElementById('tested');
+        var illinoisTestedButton = document.getElementById('illinois-tested-button');
         activeMetric = el.dataset.metric;
         el.classList.add('active');
 
         if (activeMetric === 'deaths') {
-          activeAreas['Tested'] = false;
-          testedButton.classList.remove('active');
-          testedButton.classList.add('hidden');
+          activeAreas['Illinois - Tested'] = false;
+          illinoisTestedButton.classList.remove('active');
+          illinoisTestedButton.classList.add('hidden');
         } else {
-          testedButton.classList.remove('hidden');
+          illinoisTestedButton.classList.remove('hidden');
         }
 
         myChart.data.datasets.forEach(function(dataset, index) {
