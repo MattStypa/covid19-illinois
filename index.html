@@ -42,9 +42,6 @@
       p, .p {
         margin: 0.5em 0 1.5em 0;
       }
-      .tight {
-        margin: 0.75em 0;
-      }
       h1 {
         margin: 0.75em 0 0;
         font-size: 2.5em;
@@ -83,18 +80,21 @@
       .hidden {
         display: none;
       }
+      .button-group button:first-child {
+        border-radius: 10px 0 0 10px;
+        margin-right: 0;
+      }
+      .button-group button:last-child {
+        border-radius: 0 10px 10px 0;
+      }
       #chart-container {
         height: calc(100vh - 300px);
         width: calc(100vw - 40px);
         max-height: calc(100vw);
         min-height: 300px;
       }
-      #metric-buttons button:first-child {
-        border-radius: 10px 0 0 10px;
-        margin-right: 0;
-      }
-      #metric-buttons button:last-child {
-        border-radius: 0 10px 10px 0;
+      #chart-controls p {
+        margin: 0.75em 0;
       }
       #message {
         font-size: 1.25em;
@@ -117,16 +117,18 @@
     <div id="chart-container">
         <canvas id="chart"></canvas>
     </div>
-    <p class="tight">
-      <span id="metric-buttons">
-        <button class="active" data-metric="cases" onclick="toggleMetric(this)">Cases</button>
-        <button data-metric="deaths" onclick="toggleMetric(this)">Deaths</button>
-      </span>
-      <button id="tested" data-area="Tested" onclick="toggleArea(this)">Tested</button>
-    </p>
-    <p id="legend-primary" class="tight"></p>
-    <p id="legend-secondary" class="tight"></p>
-    <p class="tight"><small>✸ Counties that we do not have data for or counties with no active cases have been ommitted.</small></p>
+    <div id="chart-controls">
+      <p>
+        <span id="metric-buttons" class="button-group">
+          <button class="active" data-metric="cases" onclick="toggleMetric(this)">Cases</button>
+          <button data-metric="deaths" onclick="toggleMetric(this)">Deaths</button>
+        </span>
+        <button id="tested" data-area="Tested" onclick="toggleArea(this)">Tested</button>
+      </p>
+      <p id="legend-primary"></p>
+      <p id="legend-secondary"></p>
+      <p><small>✸ Counties that we do not have data for or counties with no active cases have been ommitted.</small></p>
+    </div>
     <h2>Additional resources</h2>
     <p>
       <a id="mobility-report-link" target="_blank" rel="noreferrer noopener" href="#">Google Mobility Report</a>
@@ -163,8 +165,8 @@
           hidden: !activeAreas[area] || metric !== activeMetric,
           label: area,
           lineTension: 0,
-          pointRadius: 5,
-          pointHoverRadius: 5,
+          pointRadius: 3,
+          pointHoverRadius: 3,
           pointHitRadius: 30,
           fill: false,
           spanGaps: true,
