@@ -129,11 +129,6 @@
       <p id="legend-secondary"></p>
       <p><small>✸ Counties that we do not have data for or counties with no active cases have been ommitted.</small></p>
     </div>
-    <h2>Additional resources</h2>
-    <p>
-      <a id="mobility-report-link" target="_blank" rel="noreferrer noopener" href="#">Google Mobility Report</a>
-      <small>from</small> <span id="mobility-report-last-updated">???</span>
-    </p>
     <h2>About</h2>
     <p id="message">
       Hello! 👋<br/>
@@ -175,8 +170,6 @@
       }
 
       document.getElementById('idph-last-updated').innerHTML = data.updated;
-      document.getElementById('mobility-report-link').href = data.mobilityReport.url;
-      document.getElementById('mobility-report-last-updated').innerHTML = data.mobilityReport.updated;
       document.getElementById('legend-primary').innerHTML = lagendPrimary.map(renderLegendButton).join('');
       document.getElementById('legend-secondary').innerHTML = legendSecondary.map(renderLegendButton).join('');
 
